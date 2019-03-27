@@ -1,0 +1,23 @@
+//Name: Michael Carr
+//Program: Test print
+
+#include <iostream>
+#include "LList2.hpp"
+
+using namespace std;
+
+int main () {
+
+  LList2 <int> L;
+  L.InsertFirst(-1);
+  L.InsertFirst(45);
+  L.InsertLast(12);
+
+  L.Forward(PrintValue);
+  L.PrintList(cout, 2);
+  
+  L.Backward(PrintValue);
+  L.PrintList(cout, 2);
+  
+  return 0;
+}

@@ -1,0 +1,28 @@
+#include <iostream>
+#include <cstdlib>
+#include "LList2.hpp"
+
+using namespace std;
+
+int main ()
+{
+	LList2<int> L1;
+	cout << "Inserting values in list.\n";
+	L1.InsertAt (1, 5);
+	cout << L1.Size() << " elements in L1: " << L1 << endl;
+	L1.InsertAt (2, 10);
+	cout << L1.Size() << " elements in L1: " << L1 << endl;
+	L1.InsertAt (2, 15);
+	cout << L1.Size() << " elements in L1: " << L1 << endl;
+	L1.InsertAt (4, 20);
+	cout << L1.Size() << " elements in L1: " << L1 << endl;
+	L1.InsertAt (4, 25);
+	cout << L1.Size() << " elements in L1: " << L1 << endl;
+	L1.DeleteAt (3);
+	cout << L1.Size() << " elements in L1: " << L1 << endl;
+	L1.DeleteAt (1);
+	cout << L1.Size() << " elements in L1: " << L1 << endl;
+	L1.DeleteAt (3);
+	cout << L1.Size() << " elements in L1: " << L1 << endl;
+	return 0;
+}

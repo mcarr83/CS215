@@ -1,0 +1,12 @@
+lab11 : carrapp.o card.o
+	g++ -o lab11 carrapp.o card.o -g
+
+Lab12app.o : carrapp.cpp LList2.tmp card.h
+	g++ -c carrapp.cpp -g -w
+
+card.o : card.cpp card.h
+	g++ -c card.cpp -g
+
+clean :
+	rm -f core.* *.o lab12
+

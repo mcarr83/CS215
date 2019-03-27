@@ -1,0 +1,4 @@
+a) Seg fault due to itr being itr--.
+b) only will print first element in list.
+Part 2
+3) It will only print the first number in the list

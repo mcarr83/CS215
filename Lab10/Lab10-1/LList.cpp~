@@ -1,0 +1,270 @@
+/*********************************************************************
+* Assignment: Lab 10 - Singly Linked List implementation             *
+* Author: Michael Carr                                               *
+* Date: Spring 2018                                                  *
+* File: LList.cpp                                                    *
+*                                                                    *
+* Description: This file contains the all functions for the Linked   *
+* List class.                                                        *
+*********************************************************************/
+
+#include "LList.h"
+
+/*******************************************************************************
+* Function: Default constructor for the struct                                 *
+*                                                                              *
+* Parameters: none                                                             *
+* Return value: none                                                           *
+* Description: This function will this will initialize values for the struct   *
+*******************************************************************************/
+
+LList::LNode::LNode ()
+{ 
+  data = 0;
+  next = NULL;
+}
+
+/*******************************************************************************
+* Function: Default constructor for LList class                                *
+*                                                                              *
+* Parameters: none                                                             *
+* Return value: none                                                           *
+* Description: This function will initialize values for the LList class        *
+*******************************************************************************/
+
+LList::LList ()
+{
+  size = 0;     //sets size to 0
+  first = NULL; //sets first pointer to NULL
+  last = NULL;  //sets last pointer to NULL
+}
+
+/*********************************************************************
+* Function: Copy Constructor                                         *
+*                                                                    *
+* Parameters: const LList & other                                    *
+* Return value:                                                      *
+* Description: This function will set size to 0 and first to NULL.   *
+* For each nodes data in the other list, Insert Last will be called  *
+* to input more data                                                 *
+*********************************************************************/
+
+LList::LList (const LList & other)
+{ 
+  size = 0;      //sets size to 0
+  first = NULL;  //sets first pointer to NULL
+  for (LNode * i = other.first; i != NULL; i = i->next)
+    InsertLast(i->data);  //for each nodes data in other list will use
+                          //InsertLast to input data into the last part of
+                          //the list
+}
+
+/*********************************************************************
+* Function: Destructor for LList                                     *
+*                                                                    *
+* Parameters: none                                                   *
+* Return value: none                                                 *
+* Description: This function will call DeleteFirst until first equals*
+* NULL                                                               *
+*********************************************************************/
+
+LList::~LList ()
+{
+  if(first != NULL)
+    DeleteFirst();
+}
+
+/*********************************************************************
+* Function: Assignment operator                                      *
+*                                                                    *
+* Parameters: other                                                  *
+* Return value: object pointed to this                               *
+* Description: This function will check the assignment, while first  *
+* doesn't equal NULL DeleteFirst is called. For each node's data in  *
+* the other list, InsertLast function is called to insert data into  *
+* the end of the list. Return the object pointed to by this.         *
+*********************************************************************/
+
+LList & LList::operator = (const LList & other)
+{ 
+  if (this == &other)      //if this doesn't compare to the memory address of
+                           //other return the object pointed to by this.
+    return *this;
+  while (first != NULL)    //while first doesn't equal NULL call DeleteFirst
+    DeleteFirst();
+  for (LNode * n = other.first; n != NULL = n->next)
+    InsertLast (n->data);  //For each node's data in the other list, InsertLast
+                           //function is called to insert data into the end of
+                           //the list.
+  return * this;
+}                          //return the object pointed to by this
+
+/*********************************************************************
+* Function:                                                          *
+*                                                                    *
+* Parameters:                                                        *
+* Return value:                                                      *
+* Description: This function will                                    *
+*********************************************************************/
+
+bool LList::operator == (const LList & other)
+{ 
+  if (size != other.size)
+    return false;
+  LNode * a = first;
+  LNode * b = other.first;
+  while (a != NULL){
+    if (a->data != b->data)
+      return false;
+    a = a->next;
+    b = b->next;
+  }
+  return true;
+}
+
+/*********************************************************************
+* Function: Size Function                                            *
+*                                                                    *
+* Parameters: none                                                   *
+* Return value: value of size                                        *
+* Description: This function will return the value of size           *
+*********************************************************************/
+
+int LList::Size () const
+{ 
+	return size;
+}
+
+/*********************************************************************
+* Function: Output Operator                                          *
+*                                                                    *
+* Parameters: output stream & L                                      *
+* Return value: outs                                                 *
+* Description: This function will create a new node, set itself to   *
+* LList first, until the new node hits NULL print, return outs       *
+*********************************************************************/
+
+ostream & operator << (ostream & outs, const LList & L)
+{ 
+  LList::LNode * np; //setting pointer np up
+  np = L.first; //setting np to first node
+  while (np != NULL){  //keep going until NULL is reached
+    outs << np->data << ' ' << flush;  //output the data in that node
+    np = np->next;  //transverse up one node
+  }
+  return outs;
+}
+
+/*********************************************************************
+* Function: Insert First Function                                    *
+*                                                                    *
+* Parameters: value                                                  *
+* Return value: bool                                                 *
+* Description: This function will create space for new node, if new  *
+* node space cant be allocated return false. If space can be, set    *
+* new node data to value and new node next to first. If needed set  *
+* the last of the list to contain the address of the new node. Set  *
+* the first of the list to contain the address of the new node.     *
+* Increase size and then return false.                              *
+*********************************************************************/
+
+bool LList::InsertFirst (const int & value)
+{ 
+  LNode * nnp = new LNode; //allocate space for new node
+  if (nnp == NULL)     //if space can not be allocated return false
+    return false;      
+  nnp -> data = value; // set the data of the new node to the input value
+  nnp -> next = first; //set the next of the new node to the current first
+  if (first == NULL)   //if needed set the last of the list to contain the address of the new node
+    last = nnp;        
+  first = nnp;         //set the first of the list to contain the address of the new node
+  size++;              //increment size
+  return true;         //return true
+}
+
+/*********************************************************************
+* Function: Insert Last Function                                     *
+*                                                                    *
+* Parameters: value                                                  *
+* Return value: bool                                                 *
+* Description: This function will determine if list is empty or not, *
+* if list is empty it will call InsertFirst function else continue   *
+* on. Allocate space for new Node, if not return false. Set data of  *
+* of new node to value, set next of the current last node to the new *
+* node. Set the last of the list to contain the address of the new   * 
+* node, increase size by 1. Return true.                             *
+*********************************************************************/
+
+bool LList::InsertLast (const int & value)
+{ 
+  if (size == 0)       // If the list is empty call insert first to start building from the beginning
+    return InsertFirst(value);
+
+  LNode * nnp = new LNode; //Allocate space for new node
+  if (nnp == NULL)     //if space can not be allocated return false
+    return false;
+  nnp->data = value;   //set data of new node to value
+  last-> next = nnp;   //set next of the current last node to the new node
+  last = nnp;          //set the last of the list to contain the address of the new node
+  size++;              //increment the size of the list
+  return true;
+    
+}
+
+/*********************************************************************
+* Function: Delete First Function                                    *
+*                                                                    *
+* Parameters: none                                                   *
+* Return value: bool                                                 *
+* Description: This function will determine if first is NULL or size *
+* is zero. Make current first nodes next equal the next node         *
+* (2nd one) as first. If size equals 1 last equals NULL. Delete the  *
+* temp variable and decrease size by one. Return true.               *
+*********************************************************************/
+
+bool LList::DeleteFirst ()
+{ 
+  
+  if (first == NULL || size == 0)  //If first is NULL or size is 0, return false.
+    return false;
+  LNode * nnp = first;  //make new variable point and point to the current first.
+  first = first -> next;    //make current first nodes next equal the next node (2nd one) as first 
+  if (size == 1)            //if size equals 1 last equals NULL
+    last = NULL;;
+  delete nnp;               //delete the nnp
+  size--;                   //decrease size by one
+  return true;              //return true
+  
+  
+}
+
+/*********************************************************************
+* Function: Delete Last Function                                     *
+*                                                                    *
+* Parameters: none                                                   *
+* Return value: bool                                                 *
+* Description: This function will delete the last node in the linked *
+* list. First it will check if first is NULL or size is 0. If size   *
+* is 1, return DeleteFirst function. Create new node pointer set to  *
+* first than tranverse the linked list to find the second to last    * 
+* node then save th epointer to the second to last node. Second to   *
+* last next will be set to NULL. Delete last, set last to nnp,       *
+* decrease size by one and return false.                             *
+*********************************************************************/
+
+bool LList::DeleteLast ()
+{ 
+  if (first == NULL || size == 0) //if first = NULL or size == 0 return false
+    return false;
+  if (size == 1)                  //if size == 1 call DeleteFirst function
+    return DeleteFirst();
+  LNode * nnp = first;        //make new nnp node and set it to first
+  while (nnp->next != last)   //while nnp node next doesn't equal last value keep going to second to last
+    nnp = nnp->next;      //save the pointer to the last node in npp 
+  nnp->next = NULL;       //change the next of the 2nd to last to NULL
+  delete last;            //delete the node that was last
+  last = nnp;             //change last to the second to last
+  size--;                 //decrease size by one
+  return true;            //return true
+}
+
