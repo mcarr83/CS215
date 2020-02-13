@@ -1,0 +1,28 @@
+// File: resources.rc
+// Author: 
+// Project: CS215 Project 3 Fall 2018
+// Description of file contents:
+
+ICON				ICON	spongeicon_dwJ_icon.ico
+BACKGROUND_BMP	 		BITMAP	Background.bmp
+HUMAN_GAME_PIECE_BMP		BITMAP	spongebob.bmp
+COMPUTER_GAME_PIECE_BMP		BITMAP	pat.bmp
+SOUND_WAV 			WAVE 	spongebob2.wav
+SOUND2_WAV			WAVE	Coolestpartyeva.wav
+SOUND3_WAV			WAVE	spongeyay.wav
+SOUND4_WAV			WAVE	patparty.wav
+SOUND5_WAV			WAVE	sponagecousin.wav
+SOUND6_WAV			WAVE	pathosp.wav
+SOUND7_WAV			WAVE	patwhat.wav
+SOUND8_WAV			WAVE	spongenotride.wav
+SOUND9_WAV			WAVE	patdodo.wav
+SOUND10_WAV			WAVE	patfine.wav
+SOUND11_WAV			WAVE	spongechoco.wav
+SOUND12_WAV			WAVE	spongepin.wav
+SOUND13_WAV			WAVE	sponge25.wav
+SOUND14_WAV			WAVE	spongeahoy.wav
+SOUND15_WAV			WAVE	patmayo.wav
+SOUND16_WAV			WAVE	spongelic.wav
+SOUND17_WAV			WAVE	spongehash.wav
+SOUND18_WAV			WAVE	error.wav
+
